@@ -17,7 +17,7 @@ else:
 repo.git.add(A=True)
 
 if repo.is_dirty(untracked_files=True):
-    repo.index.commit("Update files")
+    repo.index.commit("update files")
 
 repo.git.branch("-M", "main")
 repo.git.push("-u", "origin", "main", "--force")
