@@ -1,0 +1,12 @@
+routers:
+  R4:
+    hostname: 198.51.100.1
+    platform: ios
+    username: napalm
+    password: password
+
+  R5:
+    hostname: placeholder
+    platform: ios
+    username: napalm
+    password: password

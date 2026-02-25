@@ -1,0 +1,56 @@
+import os
+from git import Repo, GitCommandError
+
+REPO_DIR = os.getcwd()              # current lab directory
+REPO_NAME = "NM_lab"
+GITHUB_USERNAME = "awilbern52"
+GITHUB_TOKEN = ""
+REMOTE_URL = f"https://{GITHUB_USERNAME}:{GITHUB_TOKEN}@github.com/{GITHUB_USERNAME}/{REPO_NAME}.ssh"
+
+FILES_TO_PUSH = ["snmp_output.txt", "R1_CPU.jpg"]
+
+
+def init_or_open_repo():
+    if os.path.exists(os.path.join(REPO_DIR, ".git")):
+        repo = Repo(REPO_DIR)
+    else:
+        repo = Repo.init(REPO_DIR)
+    return repo
+
+
+def set_remote(repo):
+    if "origin" not in [remote.name for remote in repo.remotes]:
+        repo.create_remote("origin", REMOTE_URL)
+    else:
+        repo.remotes.origin.set_url(REMOTE_URL)
+
+
+def push_files(repo):
+    repo.index.add(FILES_TO_PUSH)
+    repo.index.commit("Add SNMP output and CPU graph")
+    repo.remotes.origin.push(refspec="main:main")
+
+
+def push_modified_files(repo):
+    modified_files = [item.a_path for item in repo.index.diff(None)]
+
+    if modified_files:
+        repo.index.add(modified_files)
+        repo.index.commit("Update modified files")
+        repo.remotes.origin.push(refspec="master:master")
+
+
+def main():
+    repo = init_or_open_repo()
+    set_remote(repo)
+
+    try:
+        push_files(repo)
+    except GitCommandError:
+        pass  # initial commit may already exist
+
+    push_modified_files(repo)
+
+
+if __name__ == "__main__":
+    main()
