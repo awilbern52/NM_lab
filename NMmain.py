@@ -1,19 +1,19 @@
 import NMdhcp, NMgithub, NMsnmp, NMtcpdump
 
 def main():
-    print("starting tcpdump analysis...")
+    print("\nstarting tcpdump analysis...")
     NMtcpdump.main()
     
-    print("starting dhcp configuration...")
+    print("\nstarting dhcp configuration...")
     NMdhcp.main()
 
-    print("starting snmp monitoring...")
+    print("\nstarting snmp monitoring...")
     NMsnmp.main()
 
-    print("pushing to github...")
+    print("\npushing to github...")
     NMgithub.main()
 
-    print("lab5 complete.")
+    print("\nlab5 complete.")
 
 
 if __name__ == "__main__":
