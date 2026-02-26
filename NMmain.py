@@ -13,7 +13,7 @@ def main():
     print("\npushing to github...")
     NMgithub.main()
 
-    print("\nlab5 complete.")
+    print("\nlab5 complete.\n")
 
 
 if __name__ == "__main__":
